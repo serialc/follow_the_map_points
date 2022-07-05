@@ -113,13 +113,15 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
         // get the date field name and save it
         RTR.date_field_name = document.getElementById('dtfield').value;
+        // are we going to show all data
+        RTR.show_all_points = document.getElementById('showalldata').checked;
 
         // get the first point
         let fp = RTR.data.features[0];
 
         // create the map pointing at the first data point
         // slice is to create copy rather than modify data
-        RTR.createMap(fp.geometry.coordinates.slice().reverse(), 19, true);
+        RTR.createMap(fp.geometry.coordinates.slice().reverse(), 19, RTR.show_all_points);
 
         // hide the overlay
         document.getElementById('overlay').style.display = 'none';
