@@ -39,8 +39,8 @@ RTR.seqPan = function(i) {
 
     // get the next poi - it's where we're move towards
     let poi = RTR.data.features[i];
-    // only reverse copy/slice not original data
-    let nextloc = poi.geometry.coordinates.slice().reverse();
+    // only reverse copy/slice not original data (and handle when long, lat, elev are provided)
+    let nextloc = poi.geometry.coordinates.slice(0,2).reverse();
 
     // if this is the first point
     if (i === 0) {
@@ -71,8 +71,8 @@ RTR.seqPan = function(i) {
         });
         
         // pass the white hat it's moving directions
-        // only reverse copy/slice not original data
-        let prevloc = ppoi.geometry.coordinates.slice().reverse();
+        // only reverse copy/slice not original data (and handle when long, lat, elev are provided)
+        let prevloc = ppoi.geometry.coordinates.slice(0,2).reverse();
         let shift = [(nextloc[0] - prevloc[0]), (nextloc[1] - prevloc[1])];
 
         // have the white hat self manage its movement
@@ -120,8 +120,8 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
         let fp = RTR.data.features[0];
 
         // create the map pointing at the first data point
-        // slice is to create copy rather than modify data
-        RTR.createMap(fp.geometry.coordinates.slice().reverse(), 19, RTR.show_all_points);
+        // only reverse copy/slice not original data (and handle when long, lat, elev are provided)
+        RTR.createMap(fp.geometry.coordinates.slice().reverse(0,2), 19, RTR.show_all_points);
 
         // hide the overlay
         document.getElementById('overlay').style.display = 'none';
