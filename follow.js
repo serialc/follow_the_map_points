@@ -75,11 +75,11 @@ RTR.seqPan = function(i) {
         let prevloc = ppoi.geometry.coordinates.slice(0,2).reverse();
         let shift = [(nextloc[0] - prevloc[0]), (nextloc[1] - prevloc[1])];
 
-        // have the white hat self manage its movement
-        RTR.updateWhiteHat(prevloc, shift, ms_diff/1000 * RTR.fps, 0);
+        // have the white hat self-manage its movement
+        RTR.updateWhiteHat(prevloc, shift, ms_diff/1000 * RTR.fps/RTR.multiplier, 0);
 
         // update map panning focus
-        setTimeout(RTR.seqPan, ms_diff, i + 1);
+        setTimeout(RTR.seqPan, ms_diff/RTR.multiplier, i + 1);
     }
 }
 
@@ -113,6 +113,10 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
         // get the date field name and save it
         RTR.date_field_name = document.getElementById('dtfield').value;
+        // get the multiplier - set to 1 if blank
+        RTR.multiplier = document.getElementById('multiplier').value;
+        RTR.multiplier = RTR.multiplier === '' ? 1 : RTR.multiplier;
+
         // are we going to show all data
         RTR.show_all_points = document.getElementById('showalldata').checked;
 

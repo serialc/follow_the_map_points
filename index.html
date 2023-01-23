@@ -7,8 +7,8 @@
 	<title>Real-time replay of GeoJSON points</title>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <link rel="stylesheet" href="leaflet.css">
+    <script src="leaflet.js"></script>
 	<style>
 		html, body {
 			height: 100%;
@@ -53,7 +53,10 @@
             <p>This application allows you to 'follow' in real-time the path of provided GeoJSON point coordinates. This is designed to replay GPS logs and see movement in real-time.</p>
             <p><button id="load_demo_data">Load demo data</button><p>
             <p>Paste your GeoJSON data below:<br><textarea id="geojson_data"></textarea></p>
-            <p>In your GeoJSON above what is the name of your date-time field: <input id="dtfield" type="text" placeholder="e.g., utc_date">
+            <p>In the GeoJSON above what is the date-time field name:<br>
+            <input id="dtfield" type="text" placeholder="e.g., utc_date">
+            <p>Do you want to change the speed? Multiplier:<br>
+            <input id="multiplier" type="text" placeholder="e.g., 1, 10, 0.5">
             <p><input id="showalldata" type="checkbox"><label for="showalldata">Show all data points</label></p>
             <p><button id="submit_geojson_data">Submit GeoGdata data</button><p>
         </div>
