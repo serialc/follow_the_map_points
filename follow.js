@@ -56,15 +56,16 @@ RTR.seqPan = function(i) {
     // if this is the first point
     if (i === 0) {
         //RTR.map.panTo(nextloc, 19);
-        setTimeout(RTR.seqPan, 0, i + 1);
+        // wait two seconds before you start
+        setTimeout(RTR.seqPan, 2000, i + 1);
 
         // create moving point
-        RTR.whitehat = L.circle(nextloc, {
+        RTR.whitehat = L.circleMarker(nextloc, {
                 color: "black",
                 opacity: 0.5,
                 fillColor: "white",
                 fillOpacity: 1,
-                radius: 1
+                radius: 10
             }).addTo(RTR.map);
 
     } else {
@@ -114,6 +115,11 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
     let textarea = document.getElementById('geojson_data');
     let features_textarea = document.getElementById('other_geojson_data');
+    let zoomlvl = document.getElementById('zoom_lvl').value;
+
+    if (isNaN(zoomlvl)) {
+        zoomlvl = 19;
+    }
 
     document.getElementById('load_demo_data').onclick = function() {
         fetch("data/set3.geojson")
@@ -148,7 +154,7 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
         // create the map pointing at the first data point
         // only reverse copy/slice not original data (and handle when long, lat, elev are provided)
-        RTR.createMap(fp.geometry.coordinates.slice().reverse(0,2), 19, RTR.show_all_points);
+        RTR.createMap(fp.geometry.coordinates.slice().reverse(0,2), zoomlvl, RTR.show_all_points);
 
         // hide the overlay
         document.getElementById('overlay').style.display = 'none';
