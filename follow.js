@@ -12,6 +12,17 @@ RTR.createMap = function(latlng, zoom, display_data)
         maxZoom: 19
     }).addTo(RTR.map);
 
+    // if there's any other features to underlay, add them
+    for (let i = 0; i < RTR.other_data.length; i+=1) {
+        L.geoJSON(RTR.other_data[i], {
+            style: {
+                color: 'orange',
+                opacity: 0.8
+            }
+        }).addTo(RTR.map);
+    }
+
+    // if they want to show the points, not just the moving point
     if (display_data) {
         L.geoJSON(RTR.data, {
             pointToLayer: function(feature, latlng) {
@@ -49,7 +60,7 @@ RTR.seqPan = function(i) {
 
         // create moving point
         RTR.whitehat = L.circle(nextloc, {
-                color: "white",
+                color: "black",
                 opacity: 0.5,
                 fillColor: "white",
                 fillOpacity: 1,
@@ -66,7 +77,7 @@ RTR.seqPan = function(i) {
 
         // make the pan last the difference in time between this and the next location
         RTR.map.panTo(nextloc, {
-            duration: ms_diff/1000, // milliseconds to seconds
+            duration: ms_diff/1000/RTR.multiplier, // milliseconds to seconds
             easeLinearity: 1
         });
         
@@ -98,7 +109,11 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
 // initialization
 (function() {
+    // an array to store other feature classes to display
+    RTR.other_data = [];
+
     let textarea = document.getElementById('geojson_data');
+    let features_textarea = document.getElementById('other_geojson_data');
 
     document.getElementById('load_demo_data').onclick = function() {
         fetch("data/set3.geojson")
@@ -106,6 +121,14 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
             .then(function(data) {
                 textarea.value = data;
             });
+    };
+    document.getElementById('clear_other_geojson_data').onclick = function() {
+        features_textarea.value = '';
+    };
+    document.getElementById('add_other_geojson_data').onclick = function() {
+        RTR.other_data.push(JSON.parse(features_textarea.value));
+        let fcount = RTR.other_data[RTR.other_data.length-1].features.length;
+        document.getElementById('fmesg').innerHTML = "Added " + fcount + " features.";
     };
     document.getElementById('submit_geojson_data').onclick = function() {
         // parse JSON
