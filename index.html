@@ -21,26 +21,23 @@
 			max-height: 100%;
 		}
         #overlay {
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            position: fixed;
+            position: absolute;
             left: 0;
             top: 0;
-            overflow-x: hidden;
             background-color: white;
-            padding: 5% 20%;
         }
         #overlay div {
             width: 60%;
+            padding: 1rem;
         }
         #map {
             width: 100%;
             height: 100%;
         }
         textarea {
-            width: 100%;
-            height: 200px;
+            min-width: 300px;
+            width: 90%;
+            min-height: 100px;
         }
 	</style>
 </head>
@@ -49,15 +46,47 @@
     <div id="overlay">
         <div>
             <h2>Real-time replay of GeoJSON points</h2>
-            <p>This application allows you to 'follow' in real-time the path of provided GeoJSON point coordinates. This is designed to replay GPS logs and see movement in real-time.</p>
-            <p><button id="load_demo_data">Load demo data</button><p>
-            <p>Paste your GeoJSON data below:<br><textarea id="geojson_data"></textarea></p>
-            <p>In the GeoJSON above what is the date-time field name:<br>
-            <input id="dtfield" type="text" placeholder="e.g., utc_date">
-            <p>Do you want to change the speed? Multiplier:<br>
-            <input id="multiplier" type="text" placeholder="e.g., 1, 10, 0.5">
-            <p><input id="showalldata" type="checkbox"><label for="showalldata">Show all data points</label></p>
-            <p><button id="submit_geojson_data">Submit GeoGdata data</button><p>
+            <p>
+                This application allows you to 'follow' in real-time (or other speed) the path of a provided GeoJSON lat-long point coordinate sequence. This is designed to replay GPS logs and see movement in real-time. All coordinates must be using the WGS 84 geographic coordinate system.
+            </p>
+
+            <p>
+                <button id="load_demo_data">Load demo data</button>
+            </p>
+
+            <p>
+                <label for="geojson_data">Paste your movement GeoJSON point data below:</label><br>
+                <textarea id="geojson_data"></textarea>
+            </p>
+
+            <p>
+                <input id="showalldata" type="checkbox"><label for="showalldata">Show all data points</label>
+            </p>
+
+            <p>
+                <label for="dtfield">In the GeoJSON above what is the date-time field name:</label> 
+                <input id="dtfield" type="text" placeholder="e.g., utc_date">
+            </p>
+
+            <p>
+                Paste in other GeoJSON features you would like shown. This can be done for multiple GeoJSON feature sets.<br>
+                <textarea id="other_geojson_data"></textarea><br>
+                <button id="clear_other_geojson_data">Clear</button> <button id="add_other_geojson_data">Add above features</button> <span id="fmesg"></span>
+            </p>
+
+            <p>
+                <label for="zoom_lvl">Zoom level (higher values zoom in):</label>
+                <input id="zoom_lvl" type="number" value="19">
+            </p>
+
+            <p>
+                <label for="multiplier">Do you want to change the speed? Multiplier:</label>
+                <input id="multiplier" type="text" placeholder="e.g., 1, 10, 0.5">
+            </p>
+
+            <p>
+                <button id="submit_geojson_data">Animate movement</button>
+            </p>
         </div>
     </div>
     <script src="follow.js"></script>
