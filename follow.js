@@ -137,11 +137,24 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
         document.getElementById('fmesg').innerHTML = "Added " + fcount + " features.";
     };
     document.getElementById('submit_geojson_data').onclick = function() {
+
+        // check that the textarea/GeoJSON is not empty
+        if (textarea.value === '') {
+            alert("You must provide GeoJSON point data.");
+            return;
+        }
+
         // parse JSON
         RTR.data = JSON.parse(textarea.value);
 
         // get the date field name and save it
         RTR.date_field_name = document.getElementById('dtfield').value;
+        if (RTR.date_field_name === '') {
+            alert("No date-time field provided!");
+            return;
+        }
+
+
         // get the multiplier - set to 1 if blank
         RTR.multiplier = document.getElementById('multiplier').value;
         RTR.multiplier = RTR.multiplier === '' ? 1 : RTR.multiplier;
