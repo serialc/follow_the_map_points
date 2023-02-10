@@ -115,11 +115,6 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
     let textarea = document.getElementById('geojson_data');
     let features_textarea = document.getElementById('other_geojson_data');
-    let zoomlvl = document.getElementById('zoom_lvl').value;
-
-    if (isNaN(zoomlvl)) {
-        zoomlvl = 19;
-    }
 
     document.getElementById('load_demo_data').onclick = function() {
         fetch("data/set3.geojson")
@@ -161,6 +156,10 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
         // are we going to show all data
         RTR.show_all_points = document.getElementById('showalldata').checked;
+
+        // get the zoom level
+        let zoomlvl = document.getElementById('zoom_lvl').value;
+        if (isNaN(zoomlvl)) { zoomlvl = 19; }
 
         // get the first point
         let fp = RTR.data.features[0];
