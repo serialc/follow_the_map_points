@@ -130,6 +130,8 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
         RTR.other_data.push(JSON.parse(features_textarea.value));
         let fcount = RTR.other_data[RTR.other_data.length-1].features.length;
         document.getElementById('fmesg').innerHTML = "Added " + fcount + " features.";
+        // clear the textarea inputs
+        features_textarea.value = '';
     };
     document.getElementById('submit_geojson_data').onclick = function() {
 
@@ -156,6 +158,12 @@ RTR.updateWhiteHat = function(prevloc, shift_latlng, iter, i)
 
         // are we going to show all data
         RTR.show_all_points = document.getElementById('showalldata').checked;
+
+        // added features textarea should be empty
+        if (features_textarea.value !== '') {
+            alert("Did you forget to add the additonal GeoJSON features?");
+            return;
+        }
 
         // get the zoom level
         let zoomlvl = document.getElementById('zoom_lvl').value;
