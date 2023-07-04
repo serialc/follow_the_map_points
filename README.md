@@ -10,3 +10,7 @@ A few additional features are available:
 This has various applications for reporting data.
 
 ![Point moving on satellite imagery](imgs/follow_data.gif)
+
+You can use the [online version](https://serialc.github.io/follow_the_map_points/) or download and modify the code to change, for example, your base map.
+
+Contributions are welcome.
