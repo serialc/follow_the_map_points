@@ -9,4 +9,4 @@ A few additional features are available:
 
 This has various applications for reporting data.
 
-![Point moving on satellite imagery](imgs/follow_data.gif]
+![Point moving on satellite imagery](imgs/follow_data.gif)
